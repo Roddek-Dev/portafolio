@@ -54,6 +54,7 @@ const navItems: NavItem[] = [
     </div>
   </nav>
 </div>
+
 <style>
   nav {
     transform: translateX(-50%);
@@ -102,89 +103,157 @@ const navItems: NavItem[] = [
 </style>
 
 <script>
-  const nav = document.getElementById("main-nav");
-  const maxScroll = 1000;
-  let rafId: number | null = null;
-
-  function updateNav() {
-    if (window.scrollY > 0) {
-      nav?.classList.add("scrolling");
-
-      const scrollProgress = Math.min(window.scrollY / maxScroll, 1);
-      const easeProgress = 1 - Math.pow(1 - scrollProgress, 4);
-
-      const minWidth = 528;
-      const maxWidth = window.innerWidth * 0.8;
-      const currentWidth = maxWidth - (maxWidth - minWidth) * easeProgress;
-
-      if (window.innerWidth >= 768) {
-        nav?.style.setProperty("width", `${currentWidth}px`);
-      }
+  // Función para esperar a que el DOM esté completamente cargado
+  function waitForDOMContent(callback) {
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', callback);
     } else {
-      nav?.classList.remove("scrolling");
-      nav?.style.setProperty("width", "80%");
+      callback();
     }
-    rafId = null;
   }
 
-  window.addEventListener(
-    "scroll",
-    () => {
-      if (!rafId) {
-        rafId = requestAnimationFrame(updateNav);
+  // Inicializar cuando todo esté listo
+  waitForDOMContent(() => {
+    const nav = document.getElementById("main-nav");
+    const maxScroll = 1000;
+    let rafId = null;
+
+    // Función para actualizar la navegación en scroll
+    function updateNav() {
+      if (window.scrollY > 0) {
+        nav?.classList.add("scrolling");
+
+        const scrollProgress = Math.min(window.scrollY / maxScroll, 1);
+        const easeProgress = 1 - Math.pow(1 - scrollProgress, 4);
+
+        const minWidth = 528;
+        const maxWidth = window.innerWidth * 0.8;
+        const currentWidth = maxWidth - (maxWidth - minWidth) * easeProgress;
+
+        if (window.innerWidth >= 768) {
+          nav?.style.setProperty("width", `${currentWidth}px`);
+        }
+      } else {
+        nav?.classList.remove("scrolling");
+        nav?.style.setProperty("width", "80%");
       }
-    },
-    { passive: true }
-  );
+      rafId = null;
+    }
 
-  document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-    anchor.addEventListener("click", function (e) {
-      e.preventDefault();
-      const target = e.currentTarget as HTMLAnchorElement;
-      const targetId = target.getAttribute("href")?.substring(1) || "";
-      const targetElement = document.getElementById(targetId);
-      if (targetElement) {
-        targetElement.scrollIntoView({
-          behavior: "smooth",
-        });
-      }
-    });
-  });
+    // Event listener para scroll
+    window.addEventListener(
+      "scroll",
+      () => {
+        if (!rafId) {
+          rafId = requestAnimationFrame(updateNav);
+        }
+      },
+      { passive: true }
+    );
 
-  document.addEventListener("DOMContentLoaded", () => {
-    const sections = document.querySelectorAll("section[id]");
-    const navLinks = document.querySelectorAll("nav a[href^='#']");
-    const observerOptions = { threshold: 0.6 };
-
-    const observerCallback = (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          navLinks.forEach((link) => link.classList.remove("active"));
-          const id = entry.target.getAttribute("id");
-          const activeLink = document.querySelector(`nav a[href="#${id}"]`);
-          if (activeLink) {
-            activeLink.classList.add("active");
-          }
+    // Smooth scrolling para enlaces internos
+    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+      anchor.addEventListener("click", function (e) {
+        e.preventDefault();
+        const target = e.currentTarget as HTMLAnchorElement;
+        const targetId = target.getAttribute("href")?.substring(1) || "";
+        const targetElement = document.getElementById(targetId);
+        
+        if (targetElement) {
+          // Scroll suave al elemento
+          targetElement.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+          });
+          
+          // Actualizar estado activo inmediatamente
+          updateActiveLink(targetId);
         }
       });
-    };
+    });
 
-    const observer = new IntersectionObserver(
-      observerCallback,
-      observerOptions
-    );
-    sections.forEach((section) => observer.observe(section));
+    // Función para actualizar el enlace activo
+    function updateActiveLink(activeId) {
+      const navLinks = document.querySelectorAll("nav a[href^='#']");
+      navLinks.forEach((link) => {
+        link.classList.remove("active");
+        if (link.getAttribute("href") === `#${activeId}`) {
+          link.classList.add("active");
+        }
+      });
+    }
+
+    // Intersection Observer mejorado
+    function initIntersectionObserver() {
+      const sections = document.querySelectorAll("section[id]");
+      const navLinks = document.querySelectorAll("nav a[href^='#']");
+      
+      if (sections.length === 0) {
+        console.warn("No se encontraron secciones con ID");
+        return;
+      }
+
+      const observerOptions = {
+        threshold: [0.1, 0.3, 0.5, 0.7], // Múltiples thresholds
+        rootMargin: "-20% 0px -20% 0px" // Margen para activar antes
+      };
+
+      const observerCallback = (entries) => {
+        let mostVisible = null;
+        let maxRatio = 0;
+
+        // Encontrar la sección más visible
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && entry.intersectionRatio > maxRatio) {
+            maxRatio = entry.intersectionRatio;
+            mostVisible = entry.target;
+          }
+        });
+
+        // Actualizar enlace activo solo si hay una sección claramente visible
+        if (mostVisible && maxRatio > 0.3) {
+          const id = mostVisible.getAttribute("id");
+          updateActiveLink(id);
+        }
+      };
+
+      const observer = new IntersectionObserver(observerCallback, observerOptions);
+      sections.forEach((section) => {
+        observer.observe(section);
+        console.log(`Observando sección: ${section.id}`); // Debug
+      });
+
+      // Verificar estado inicial después de un breve delay
+      setTimeout(() => {
+        const viewportCenter = window.innerHeight / 2;
+        let closestSection = null;
+        let minDistance = Infinity;
+
+        sections.forEach((section) => {
+          const rect = section.getBoundingClientRect();
+          const sectionCenter = rect.top + rect.height / 2;
+          const distance = Math.abs(viewportCenter - sectionCenter);
+
+          if (distance < minDistance && rect.top < viewportCenter && rect.bottom > viewportCenter) {
+            minDistance = distance;
+            closestSection = section;
+          }
+        });
+
+        if (closestSection) {
+          updateActiveLink(closestSection.id);
+        }
+      }, 100);
+    }
+
+    // Inicializar observer
+    initIntersectionObserver();
+
+    // Re-inicializar si se hace resize
+    let resizeTimeout;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(initIntersectionObserver, 250);
+    });
   });
 </script>
-
-<style>
-  @media (max-width: 767px) {
-    body {
-      padding-bottom: 70px;
-    }
-  }
-
-  nav a.active {
-    color: white !important;
-  }
-</style>
