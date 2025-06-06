@@ -1,9 +1,10 @@
 ---
 import { Image } from "astro:assets";
-import svgl from "../../public/svgl.png";
-import stockin from "../../public/stockin.png";
 import moviesfordevs from "../../public/moviesfordevs.png";
 import tron from "../../public/tron.png";
+import BMSPA_Spring from "../../public/BMSPA_Spring.png";
+import BMSPA_Laravel from "../../public/BMSPA_Laravel.png";
+import digitaliza from "../../public/Digitaliza.png";
 
 interface Project {
   title: string;
@@ -11,36 +12,41 @@ interface Project {
   link: string;
   preview: string;
   status: string;
+  description: string;
 }
 
 const projects: Project[] = [
   {
-    title: "MoviesForDevs",
-    image: moviesfordevs as ImageMetadata,
-    link: "https://github.com/gothsec/MoviesForDevs",
-    preview: "https://movies-for-devs.vercel.app",
-    status: "On Development",
+    title: "BarberMusicSpa (Spring Boot)",
+    image: BMSPA_Spring as ImageMetadata,
+    link: "https://github.com/Roddek-Dev/BMSPA_Spring",
+    preview: "#",
+    status: "Java Spring Boot",
+    description: "Sistema de gestión para una barbería y spa. Desarrollado con Java Spring Boot, aplicando arquitectura limpia y metodologías ágiles.",
   },
   {
-    title: "StockIn",
-    image: stockin as ImageMetadata,
-    link: "https://github.com/gothsec/stockin-demo",
-    preview: "https://stockin-demo.vercel.app",
-    status: "On Development",
+    title: "BarberMusicSpa (Laravel con arquitectura hexagonal)",
+    image: BMSPA_Laravel as ImageMetadata,
+    link: "https://github.com/Roddek-Dev/BMSPA_Laravel",
+    preview: "#",
+    status: "PHP Laravel (En desarrollo)",
+    description: "Nueva versión del sistema BarberMusicSpa, desarrollado con PHP y Laravel, implementando arquitectura hexagonal para una mayor mantenibilidad y escalabilidad.",
   },
   {
-    title: "Svgl.app",
-    image: svgl as ImageMetadata,
-    link: "https://github.com/pheralb/svgl",
-    preview: "https://svgl.app",
-    status: "Contributor",
-  },
-  {
-    title: "Tron Legacy Web",
+    title: "Landing Page de Digitaliza",
     image: tron as ImageMetadata,
-    link: "https://github.com/Gothsec/Tron-Legacy-web",
-    preview: "https://tron-legacy-web.vercel.app/",
-    status: "Template (not official)",
+    link: "https://github.com/Roddek-Dev/Digitaliza_REACT",
+    preview: "#",
+    status: "React + Tailwind CSS",
+    description: "Landing page responsiva desarrollada con React y Tailwind CSS para la empresa Digitaliza, enfocada en marketing digital.",
+  },
+  {
+    title: "Sitio web de Digitaliza",
+    image: digitaliza as ImageMetadata,
+    link: "https://github.com/Roddek-Dev/DigitalizaPaginaWeb",
+    preview: "#",
+    status: "HTML + CSS + JS",
+    description: "Sitio web completo desarrollado con HTML, CSS y JavaScript para el emprendimiento Digitaliza, optimizado para SEO y experiencia de usuario.",
   },
 ];
 ---
@@ -50,8 +56,8 @@ const projects: Project[] = [
   class="py-12 border-t border-[#ffffff10] text-[var(--white)]"
 >
   <div class="max-w-5xl mx-auto">
-    <h2 class="text-lg text-[var(--sec)] mb-2 shiny-sec">My work</h2>
-    <h3 class="text-4xl md:text-5xl font-medium mb-8">Projects</h3>
+    <h2 class="text-lg text-[var(--sec)] mb-2 shiny-sec">Mis proyectos</h2>
+    <h3 class="text-4xl md:text-5xl font-medium mb-8">Proyectos</h3>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
       {
@@ -96,7 +102,7 @@ const projects: Project[] = [
                   <a
                     target="_blank"
                     href={project.preview}
-                    aria-label="Preview"
+                    aria-label="Vista previa"
                     class="size-14 flex justify-center items-center text-[var(--white-icon)] hover:text-white transition duration-300 ease-in-out border border-1 border-[var(--white-icon-tr)] p-3 rounded-xl bg-[#1414149c] hover:bg-[var(--white-icon-tr)]"
                   >
                     <svg
@@ -117,11 +123,11 @@ const projects: Project[] = [
     </div>
     <a
       target="_blank"
-      href="https://github.com/Gothsec?tab=repositories"
+      href="https://github.com/Roddek-Dev?tab=repositories"
       aria-label="GitHub"
       class="w-full flex items-center justify-center gap-2 mt-9 text-[var(--white-icon)] hover:text-white transition duration-300 ease-in-out border border-[var(--white-icon-tr)] p-3 rounded-full bg-[#1414149c] hover:bg-[var(--white-icon-tr)] hover:scale-105"
     >
-      <span class="md:text-lg text-md">More projects on</span>
+      <span class="md:text-lg text-md">Más proyectos en</span>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
