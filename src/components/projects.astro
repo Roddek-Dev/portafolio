@@ -1,144 +1,305 @@
 ---
-import { Image } from "astro:assets";
-import moviesfordevs from "../../public/moviesfordevs.png";
-import tron from "../../public/tron.png";
-import BMSPA_Spring from "../../public/BMSPA_Spring.png";
-import BMSPA_Laravel from "../../public/BMSPA_Laravel.png";
-import digitaliza from "../../public/Digitaliza.png";
-import digitaliza_react from "../../public/Digitaliza_PW.png";
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import tableroPowerBi from '../assets/tablero-power-bi.jpeg';
+import modeloBd from '../assets/modelo-bd.png';
+import bmspaSpring from '../assets/BMSPA_Spring.png';
+import digitalizaWeb from '../assets/digitaliza-web.png';
+
+interface SliderImage {
+  src: ImageMetadata;
+  alt: string;
+}
 
 interface Project {
   title: string;
-  image: ImageMetadata;
-  link: string;
+  github: string | null;
   preview: string;
   status: string;
   description: string;
+  icon?: string;
+  image?: ImageMetadata;
+  sliderImages?: SliderImage[];
 }
 
 const projects: Project[] = [
   {
-    title: "BarberMusicSpa (Spring Boot)",
-    image: BMSPA_Spring as ImageMetadata,
-    link: "https://github.com/Roddek-Dev/BMSPA_Spring",
-    preview: "#",
+    title: "Digitaliza — Sitio Web",
+    github: null,
+    preview: "https://digitaliza.com.co",
+    status: "Astro + Tailwind CSS + TypeScript",
+    description:
+      "Sitio web multipágina corporativo de Digitaliza, enfocado en marketing digital, SEO y experiencia de usuario. Despliegue en producción.",
+    image: digitalizaWeb,
+  },
+  {
+    title: "Python Document Validator",
+    github: "https://github.com/Roddek-Dev/python_validacion",
+    preview: "https://github.com/Roddek-Dev/python_validacion",
+    status: "Python · Script CLI",
+    description:
+      "Script de Python para organizar y clasificar documentos automáticamente. Analiza el contenido de cada archivo y los diferencia por tipo y categoría, optimizando la gestión documental.",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-12"><path d="M11.914 0C6.152 0 6.3 2.617 6.3 2.617l.034 2.712h5.814v.814H4.545S.886 5.76.886 11.59s3.188 5.624 3.188 5.624h1.902V14.4s-.103-3.188 3.143-3.188h5.415s3.04.049 3.04-2.938V3.207S17.27 0 11.914 0zm-3.1 1.792a1.02 1.02 0 1 1 0 2.04 1.02 1.02 0 0 1 0-2.04zM12.086 24c5.762 0 5.614-2.617 5.614-2.617l-.034-2.712H11.85v-.814h7.604s3.66.418 3.66-4.41-3.188-5.624-3.188-5.624H18.12v2.814s.103 3.188-3.143 3.188H9.56s-3.04-.049-3.04 2.938v5.067S6.73 24 12.086 24zm3.1-1.792a1.02 1.02 0 1 1 0-2.04 1.02 1.02 0 0 1 0 2.04z"/></svg>`,
+  },
+  {
+    title: "BarberMusicSpa — API REST",
+    github: "https://github.com/Roddek-Dev/BMSPA_Laravel",
+    preview: "https://github.com/Roddek-Dev/BMSPA_Laravel",
+    status: "PHP Laravel 11",
+    description:
+      "API REST completa para la gestión integral de BarberMusicSpa: autenticación, agendamiento de citas, catálogo de servicios, barberos y clientes. Arquitectura hexagonal para mantenibilidad y escalabilidad.",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-12"><path d="M3 17l8 5l7 -4v-8l-4 -2.5l4 -2.5l4 2.5v4l-11 6.5l-4 -2.5v-7.5l-4 -2.5z"/><path d="M11 18v4"/><path d="M7 15.5l7 -4"/><path d="M14 7.5v4"/><path d="M14 11.5l4 2.5"/><path d="M11 13v-7.5l-4 -2.5l-4 2.5"/><path d="M7 8l4 -2.5"/><path d="M18 10l4 -2.5"/></svg>`,
+  },
+  {
+    title: "BarberMusicSpa — Full Stack",
+    github: "https://github.com/Roddek-Dev/BMSPA_Spring",
+    preview: "https://github.com/Roddek-Dev/BMSPA_Spring",
     status: "Java Spring Boot",
-    description: "Sistema de gestión para una barbería y spa. Desarrollado con Java Spring Boot, aplicando arquitectura limpia y metodologías ágiles.",
+    description:
+      "Sistema full stack para BarberMusicSpa con Java Spring Boot. Gestión de citas, servicios, barberos y panel administrativo. Incluye un microservicio que conecta con una IA personalizada de BMSPA.",
+    image: bmspaSpring,
   },
   {
-    title: "BarberMusicSpa (Laravel con arquitectura hexagonal)",
-    image: BMSPA_Laravel as ImageMetadata,
-    link: "https://github.com/Roddek-Dev/BMSPA_Laravel",
+    title: "Sysman — Tablero Power BI",
+    github: null,
     preview: "#",
-    status: "PHP Laravel (En desarrollo)",
-    description: "Nueva versión del sistema BarberMusicSpa, desarrollado con PHP y Laravel, implementando arquitectura hexagonal para una mayor mantenibilidad y escalabilidad.",
-  },
-  {
-    title: "Landing Page de Digitaliza",
-    image: digitaliza_react as ImageMetadata,
-    link: "https://github.com/Roddek-Dev/Digitaliza_REACT",
-    preview: "#",
-    status: "React + Tailwind CSS",
-    description: "Landing page responsiva desarrollada con React y Tailwind CSS para la empresa Digitaliza, enfocada en marketing digital.",
-  },
-  {
-    title: "Sitio web de Digitaliza",
-    image: digitaliza as ImageMetadata,
-    link: "https://github.com/Roddek-Dev/DigitalizaPaginaWeb",
-    preview: "#",
-    status: "HTML + CSS + JS",
-    description: "Sitio web completo desarrollado con HTML, CSS y JavaScript para Digitaliza, optimizado para SEO y experiencia de usuario.",
+    status: "Power BI · DAX · Data Modeling",
+    description:
+      "Tablero interactivo en Power BI para Sysman S.A.S. con KPIs de soporte, tendencias de tickets, rendimiento por técnico y análisis de SLA. Modelado de datos y medidas DAX optimizadas.",
+    sliderImages: [
+      { src: tableroPowerBi, alt: "Tablero Power BI — Sysman S.A.S." },
+      { src: modeloBd, alt: "Modelo de base de datos — Sysman S.A.S." },
+    ],
   },
 ];
 ---
 
 <section
   id="projects"
-  class="py-12 border-t border-[#ffffff10] text-[var(--white)]"
+  class="py-12 border-t border-[#ffffff10] text-[var(--color-on-surface)]"
 >
   <div class="max-w-5xl mx-auto">
-    <h2 class="text-lg text-[var(--sec)] mb-2 shiny-sec">Mis proyectos</h2>
+    <h2 class="text-lg text-[var(--color-primary)] mb-2 shiny-sec">Mis proyectos</h2>
     <h3 class="text-4xl md:text-5xl font-medium mb-8">Proyectos</h3>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
       {
-        projects.map((project) => (
-          <div class="group">
-            <a
-              href={project.preview}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="block"
-            >
-              <div class="rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 mb-4">
-                <Image
-                  src={project.image}
-                  alt={project.title}
-                  class="w-full h-48 md:h-72 object-cover group-hover:scale-105 transition-transform duration-300"
-                />
+        projects.map((project) => {
+          const hasPreview = project.preview !== "#";
+
+          const mediaContent = project.sliderImages ? (
+            <div class="slider-container relative overflow-hidden rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 h-48 md:h-56 bg-[var(--color-component-bg)] border border-[var(--color-on-surface-subtle)] group-hover:border-[var(--color-on-surface-muted)] transition-colors">
+              <div class="slider-track flex transition-transform duration-500 ease-in-out h-full">
+                {project.sliderImages.map((img) => (
+                  <button class="min-w-full shrink-0 h-full border-0 p-0 cursor-zoom-in" data-lightbox-trigger>
+                    <Image src={img.src} alt={img.alt} class="w-full h-full object-cover" />
+                  </button>
+                ))}
               </div>
-              <div class="flex items-center px-3">
-                <div class="flex-grow">
-                  <h4 class="text-2xl font-semibold">{project.title}</h4>
-                  <span class="py-1 text-sm text-[var(--white-icon)]">
-                    {project.status}
-                  </span>
-                </div>
-                <div class="flex gap-2 ml-auto">
+              <div class="absolute bottom-3 left-0 right-0 flex justify-center gap-2">
+                {project.sliderImages.map((_, i) => (
+                  <button
+                    class="slider-dot w-2.5 h-2.5 rounded-full transition-colors duration-300 border-0 cursor-pointer"
+                    data-index={i}
+                    aria-label={`Imagen ${i + 1} de ${project.sliderImages!.length}`}
+                  />
+                ))}
+              </div>
+            </div>
+          ) : project.image ? (
+            <div class="rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 h-48 md:h-56 border border-[var(--color-on-surface-subtle)] group-hover:border-[var(--color-on-surface-muted)] transition-colors">
+              <Image src={project.image} alt={project.title} class="w-full h-full object-cover" />
+            </div>
+          ) : project.icon ? (
+            <div class="rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 h-48 md:h-56 bg-[var(--color-component-bg)] flex items-center justify-center border border-[var(--color-on-surface-subtle)] group-hover:border-[var(--color-on-surface-muted)] transition-colors">
+              <div class="text-[var(--color-on-surface-muted)] group-hover:text-[var(--color-primary)] transition-colors" set:html={project.icon} />
+            </div>
+          ) : null;
+
+          return (
+            <div class="group">
+              <div class="block">
+                {hasPreview ? (
                   <a
-                    target="_blank"
-                    href={project.link}
-                    aria-label="GitHub"
-                    class="size-14 flex justify-center items-center text-[var(--white-icon)] hover:text-white transition duration-300 ease-in-out border border-1 border-[var(--white-icon-tr)] p-3 rounded-xl bg-[#1414149c] hover:bg-[var(--white-icon-tr)]"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                      class="size-7"
-                    >
-                      <path d="M24 12L18.3431 17.6569L16.9289 16.2426L21.1716 12L16.9289 7.75736L18.3431 6.34315L24 12ZM2.82843 12L7.07107 16.2426L5.65685 17.6569L0 12L5.65685 6.34315L7.07107 7.75736L2.82843 12ZM9.78845 21H7.66009L14.2116 3H16.3399L9.78845 21Z" />
-                    </svg>
-                  </a>
-                  <a
-                    target="_blank"
                     href={project.preview}
-                    aria-label="Vista previa"
-                    class="size-14 flex justify-center items-center text-[var(--white-icon)] hover:text-white transition duration-300 ease-in-out border border-1 border-[var(--white-icon-tr)] p-3 rounded-xl bg-[#1414149c] hover:bg-[var(--white-icon-tr)]"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="block mb-4"
                   >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                      class="size-7"
-                    >
-                      <path d="M16.0037 9.41421L7.39712 18.0208L5.98291 16.6066L14.5895 8H7.00373V6H18.0037V17H16.0037V9.41421Z" />
-                    </svg>
+                    {mediaContent}
                   </a>
+                ) : (
+                  <div class="mb-4">{mediaContent}</div>
+                )}
+                <div class="flex items-center px-3">
+                  <div class="flex-grow">
+                    <h4 class="text-2xl font-semibold">{project.title}</h4>
+                    <span class="py-1 text-sm text-[var(--color-on-surface-muted)]">
+                      {project.status}
+                    </span>
+                    <p class="text-sm text-[var(--color-on-surface-muted)] mt-2 leading-relaxed">
+                      {project.description}
+                    </p>
+                  </div>
+                  <div class="flex gap-2 ml-auto">
+                    {project.github && (
+                      <a
+                        target="_blank"
+                        href={project.github}
+                        aria-label="GitHub"
+                        class="size-14 flex justify-center items-center text-[var(--color-on-surface-muted)] hover:text-[var(--color-on-surface)] transition duration-300 ease-in-out border border-1 border-[var(--color-on-surface-subtle)] p-3 rounded-xl bg-[var(--color-component-bg)] hover:bg-[var(--color-on-surface-subtle)]"
+                      >
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-7">
+                          <path d="M12.001 2C6.47598 2 2.00098 6.475 2.00098 12C2.00098 16.425 4.86348 20.1625 8.83848 21.4875C9.33848 21.575 9.52598 21.275 9.52598 21.0125C9.52598 20.775 9.51348 19.9875 9.51348 19.15C7.00098 19.6125 6.35098 18.5375 6.15098 17.975C6.03848 17.6875 5.55098 16.8 5.12598 16.5625C4.77598 16.375 4.27598 15.9125 5.11348 15.9C5.90098 15.8875 6.46348 16.625 6.65098 16.925C7.55098 18.4375 8.98848 18.0125 9.56348 17.75C9.65098 17.1 9.91348 16.6625 10.201 16.4125C7.97598 16.1625 5.65098 15.3 5.65098 11.475C5.65098 10.3875 6.03848 9.4875 6.67598 8.7875C6.57598 8.5375 6.22598 7.5125 6.77598 6.1375C6.77598 6.1375 7.61348 5.875 9.52598 7.1625C10.326 6.9375 11.176 6.825 12.026 6.825C12.876 6.825 13.726 6.9375 14.526 7.1625C16.4385 5.8625 17.276 6.1375 17.276 6.1375C17.826 7.5125 17.476 8.5375 17.376 8.7875C18.0135 9.4875 18.401 10.375 18.401 11.475C18.401 15.3125 16.0635 16.1625 13.8385 16.4125C14.201 16.725 14.5135 17.325 14.5135 18.2625C14.5135 19.6 14.501 20.675 14.501 21.0125C14.501 21.275 14.6885 21.5875 15.1885 21.4875C19.259 20.1133 21.9999 16.2963 22.001 12C22.001 6.475 17.526 2 12.001 2Z" />
+                        </svg>
+                      </a>
+                    )}
+                    {project.preview !== "#" && (
+                      <a
+                        target="_blank"
+                        href={project.preview}
+                        aria-label="Ver proyecto"
+                        class="size-14 flex justify-center items-center text-[var(--color-on-surface-muted)] hover:text-[var(--color-on-surface)] transition duration-300 ease-in-out border border-1 border-[var(--color-on-surface-subtle)] p-3 rounded-xl bg-[var(--color-component-bg)] hover:bg-[var(--color-on-surface-subtle)]"
+                      >
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-7">
+                          <path d="M16.0037 9.41421L7.39712 18.0208L5.98291 16.6066L14.5895 8H7.00373V6H18.0037V17H16.0037V9.41421Z" />
+                        </svg>
+                      </a>
+                    )}
+                  </div>
                 </div>
               </div>
-            </a>
-          </div>
-        ))
+            </div>
+          );
+        })
       }
     </div>
     <a
       target="_blank"
       href="https://github.com/Roddek-Dev?tab=repositories"
       aria-label="GitHub"
-      class="w-full flex items-center justify-center gap-2 mt-9 text-[var(--white-icon)] hover:text-white transition duration-300 ease-in-out border border-[var(--white-icon-tr)] p-3 rounded-full bg-[#1414149c] hover:bg-[var(--white-icon-tr)] hover:scale-105"
+      class="w-full flex items-center justify-center gap-2 mt-9 text-[var(--color-on-surface-muted)] hover:text-[var(--color-on-surface)] transition duration-300 ease-in-out border border-[var(--color-on-surface-subtle)] p-3 rounded-full bg-[var(--color-component-bg)] hover:bg-[var(--color-on-surface-subtle)] hover:scale-105"
     >
       <span class="md:text-lg text-md">Más proyectos en</span>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24"
-        fill="currentColor"
-        class="size-6"
-      >
-        <path
-          d="M12.001 2C6.47598 2 2.00098 6.475 2.00098 12C2.00098 16.425 4.86348 20.1625 8.83848 21.4875C9.33848 21.575 9.52598 21.275 9.52598 21.0125C9.52598 20.775 9.51348 19.9875 9.51348 19.15C7.00098 19.6125 6.35098 18.5375 6.15098 17.975C6.03848 17.6875 5.55098 16.8 5.12598 16.5625C4.77598 16.375 4.27598 15.9125 5.11348 15.9C5.90098 15.8875 6.46348 16.625 6.65098 16.925C7.55098 18.4375 8.98848 18.0125 9.56348 17.75C9.65098 17.1 9.91348 16.6625 10.201 16.4125C7.97598 16.1625 5.65098 15.3 5.65098 11.475C5.65098 10.3875 6.03848 9.4875 6.67598 8.7875C6.57598 8.5375 6.22598 7.5125 6.77598 6.1375C6.77598 6.1375 7.61348 5.875 9.52598 7.1625C10.326 6.9375 11.176 6.825 12.026 6.825C12.876 6.825 13.726 6.9375 14.526 7.1625C16.4385 5.8625 17.276 6.1375 17.276 6.1375C17.826 7.5125 17.476 8.5375 17.376 8.7875C18.0135 9.4875 18.401 10.375 18.401 11.475C18.401 15.3125 16.0635 16.1625 13.8385 16.4125C14.201 16.725 14.5135 17.325 14.5135 18.2625C14.5135 19.6 14.501 20.675 14.501 21.0125C14.501 21.275 14.6885 21.5875 15.1885 21.4875C19.259 20.1133 21.9999 16.2963 22.001 12C22.001 6.475 17.526 2 12.001 2Z"
-        ></path>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+        <path d="M12.001 2C6.47598 2 2.00098 6.475 2.00098 12C2.00098 16.425 4.86348 20.1625 8.83848 21.4875C9.33848 21.575 9.52598 21.275 9.52598 21.0125C9.52598 20.775 9.51348 19.9875 9.51348 19.15C7.00098 19.6125 6.35098 18.5375 6.15098 17.975C6.03848 17.6875 5.55098 16.8 5.12598 16.5625C4.77598 16.375 4.27598 15.9125 5.11348 15.9C5.90098 15.8875 6.46348 16.625 6.65098 16.925C7.55098 18.4375 8.98848 18.0125 9.56348 17.75C9.65098 17.1 9.91348 16.6625 10.201 16.4125C7.97598 16.1625 5.65098 15.3 5.65098 11.475C5.65098 10.3875 6.03848 9.4875 6.67598 8.7875C6.57598 8.5375 6.22598 7.5125 6.77598 6.1375C6.77598 6.1375 7.61348 5.875 9.52598 7.1625C10.326 6.9375 11.176 6.825 12.026 6.825C12.876 6.825 13.726 6.9375 14.526 7.1625C16.4385 5.8625 17.276 6.1375 17.276 6.1375C17.826 7.5125 17.476 8.5375 17.376 8.7875C18.0135 9.4875 18.401 10.375 18.401 11.475C18.401 15.3125 16.0635 16.1625 13.8385 16.4125C14.201 16.725 14.5135 17.325 14.5135 18.2625C14.5135 19.6 14.501 20.675 14.501 21.0125C14.501 21.275 14.6885 21.5875 15.1885 21.4875C19.259 20.1133 21.9999 16.2963 22.001 12C22.001 6.475 17.526 2 12.001 2Z" />
       </svg>
     </a>
   </div>
+
+  <dialog
+    id="lightbox"
+    class="fixed inset-0 z-50 bg-black/90 backdrop-blur-sm p-0 border-0 w-full h-full max-w-none max-h-none open:flex items-center justify-center"
+  >
+    <div class="relative max-w-[90vw] max-h-[90vh] flex items-center">
+      <button
+        id="lightbox-prev"
+        class="absolute -left-14 text-white/60 hover:text-white text-4xl leading-none border-0 bg-transparent cursor-pointer transition-colors p-2"
+        aria-label="Imagen anterior"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-8"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <button
+        id="lightbox-close"
+        class="absolute -top-10 right-0 text-white/70 hover:text-white text-3xl leading-none border-0 bg-transparent cursor-pointer z-10"
+        aria-label="Cerrar"
+      >&times;</button>
+      <img id="lightbox-img" src="" alt="" class="max-w-full max-h-[90vh] object-contain rounded-lg" />
+      <button
+        id="lightbox-next"
+        class="absolute -right-14 text-white/60 hover:text-white text-4xl leading-none border-0 bg-transparent cursor-pointer transition-colors p-2"
+        aria-label="Imagen siguiente"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-8"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+    </div>
+  </dialog>
 </section>
+
+<script>
+  document.querySelectorAll('.slider-container').forEach((container) => {
+    const track = container.querySelector('.slider-track') as HTMLElement;
+    const dots = container.querySelectorAll('.slider-dot');
+    const total = dots.length;
+    let current = 0;
+
+    function goTo(idx: number) {
+      if (idx < 0) idx = total - 1;
+      if (idx >= total) idx = 0;
+      track.style.transform = `translateX(-${idx * 100}%)`;
+      dots.forEach((d, i) => {
+        (d as HTMLElement).style.backgroundColor = i === idx ? '#fff' : 'rgba(255,255,255,0.4)';
+      });
+      current = idx;
+    }
+
+    dots.forEach((dot) => {
+      dot.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const idx = parseInt((dot as HTMLElement).dataset.index || '0');
+        goTo(idx);
+      });
+    });
+
+    goTo(0);
+    setInterval(() => goTo(current + 1), 4000);
+  });
+
+  const lightbox = document.getElementById('lightbox') as HTMLDialogElement | null;
+  const lightboxImg = document.getElementById('lightbox-img') as HTMLImageElement | null;
+  const lightboxClose = document.getElementById('lightbox-close');
+  const lightboxPrev = document.getElementById('lightbox-prev');
+  const lightboxNext = document.getElementById('lightbox-next');
+
+  const sliderImages: { src: string; alt: string }[] = [];
+  let lightboxIndex = 0;
+
+  document.querySelectorAll('[data-lightbox-trigger]').forEach((trigger, idx) => {
+    const img = trigger.querySelector('img') as HTMLImageElement | null;
+    if (img) {
+      sliderImages.push({ src: img.src, alt: img.alt });
+    }
+    trigger.addEventListener('click', () => {
+      lightboxIndex = idx;
+      showLightboxImage();
+      lightbox?.showModal();
+    });
+  });
+
+  function showLightboxImage() {
+    if (!lightboxImg || !sliderImages[lightboxIndex]) return;
+    lightboxImg.src = sliderImages[lightboxIndex].src;
+    lightboxImg.alt = sliderImages[lightboxIndex].alt;
+  }
+
+  function lightboxPrevImage() {
+    if (sliderImages.length === 0) return;
+    lightboxIndex = (lightboxIndex - 1 + sliderImages.length) % sliderImages.length;
+    showLightboxImage();
+  }
+
+  function lightboxNextImage() {
+    if (sliderImages.length === 0) return;
+    lightboxIndex = (lightboxIndex + 1) % sliderImages.length;
+    showLightboxImage();
+  }
+
+  lightboxPrev?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    lightboxPrevImage();
+  });
+  lightboxNext?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    lightboxNextImage();
+  });
+
+  lightbox?.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowLeft') lightboxPrevImage();
+    if (e.key === 'ArrowRight') lightboxNextImage();
+  });
+
+  lightboxClose?.addEventListener('click', () => lightbox?.close());
+  lightbox?.addEventListener('click', (e) => {
+    if (e.target === lightbox) lightbox.close();
+  });
+</script>

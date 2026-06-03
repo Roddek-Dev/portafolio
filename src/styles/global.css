@@ -1,0 +1,94 @@
+@import "tailwindcss";
+
+@theme {
+  /* Semantic tokens (new naming) */
+  --color-surface: #101010;
+  --color-primary: #0A84FF;
+  --color-on-surface: #dfdfdf;
+  --color-on-surface-muted: #f3f3f398;
+  --color-on-surface-subtle: #f3f3f310;
+  --color-component-bg: #1414149c;
+  --color-container: #181818;
+  --color-line: #333333;
+  --color-pink: #ff69b4;
+
+  /* Font */
+  --font-sans: "Montserrat", -apple-system, system-ui, sans-serif;
+
+  /* Animation */
+  --animate-scale: scaleAnim 300ms ease-in-out;
+}
+
+@layer base {
+  :root {
+    /* Legacy compatibility variables */
+    --background: #101010;
+    --sec: #0A84FF;
+    --white: #dfdfdf;
+    --white-icon: #f3f3f398;
+    --white-icon-tr: #f3f3f310;
+    --component-bg: #1414149c;
+    --container: #181818;
+    --line: #333333;
+    --pink: #ff69b4;
+  }
+
+  * {
+    font-family: var(--font-sans);
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+  }
+
+  *::selection {
+    background-color: var(--color-primary);
+    color: var(--color-surface);
+  }
+
+  /* Scrollbar styles */
+  ::-webkit-scrollbar {
+    width: 15px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--color-container);
+    border-radius: 30px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-surface);
+    border-radius: 10px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-pink);
+  }
+
+  /* Scrollbar styles for Firefox */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-line) var(--color-container);
+  }
+}
+
+@keyframes scaleAnim {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+@keyframes shine {
+  0% { background-position: 100% 50%; }
+  30%, 70% { background-position: 0% 50%; }
+}
+
+/* Prefers reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
